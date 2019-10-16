@@ -5,22 +5,36 @@ import UIKit
 // a. Define an enumeration called iOSDeviceType with member values iPhone, iPad, iWatch. Create a variable called myiPad and assign it to .iPad.
 
 // Your code here
+enum iOSDeviceType {
+    case iPhone
+    case iPad
+    case iWatch
+}
+
+var myiPad = iOSDeviceType.iPad
 
 // Uncomment the lines below to test your solution
 
-//let myiPad = iOSDeviceType.iPad
-//assert(myiPad == .iPad)
+myiPad = iOSDeviceType.iPad
+assert(myiPad == .iPad)
 
 // b. Adjust your code above so that iPhone and iPad have associated values of type String which represents the model number.  Create an instance of a .iPhone("8+") and assign it to a variable called myPhone
 
 // Your code here
+enum iOSDeviceType1b {
+    case iPhone(model: String)
+    case iPad(String)
+    case iWatch
+}
+
+let myPhone = iOSDeviceType1b.iPhone (model: "8+")
 
 // Uncomment the lines below to test your solution
 
-//switch myPhone {
-//case let .iPhone(model): assert(model == "8+", "Was expecting a model type of 8+, but got \(model)")
-//default: fatalError("Was expecting an iPhone but got \(myPhone)")
-//}
+switch myPhone {
+case let .iPhone(model): assert(model == "8+", "Was expecting a model type of 8+, but got \(model)")
+default: fatalError("Was expecting an iPhone but got \(myPhone)")
+}
 
 // Question Two
 
@@ -32,6 +46,7 @@ import UIKit
 //A step .left will decrease the x coordinate by 1.
 
 
+// Your function here
 enum Step {
     case up
     case down
@@ -39,16 +54,36 @@ enum Step {
     case right
 }
 
-// Your function here
+func getPosition(startingAt:(x: Int, y: Int), afterSteps:[Step]) -> (Int, Int) {
+    var countx = startingAt.x
+    var county = startingAt.y
+    for step in afterSteps {
+        switch true {
+        case step == Step.up :
+            county += 1
+        case step == Step.down :
+            county -= 1
+        case step == Step.left :
+            countx -= 1
+        case step == Step.right :
+            countx += 1
+        default:
+            print("Invalid")
+        }
+        
+    }
+    let result = (countx, county)
+    return result
+}
 
 // Uncomment the lines below to test your solution
 
-//let startingLocation = (x: 0, y: 0)
-//let steps: [Step] = [.up, .up, .left, .down, .left]
-//let expectedEndPosition = (x: -2, y: 1)
-//let endPosition = getPosition(startingAt: startingLocation, afterSteps: steps)
-//
-//assert(endPosition == expectedEndPosition, "Was expecting \(expectedEndPosition) but got \(endPosition)")
+let startingLocation = (x: 0, y: 0)
+let steps: [Step] = [.up, .up, .left, .down, .left]
+let expectedEndPosition = (x: -2, y: 1)
+let endPosition = getPosition(startingAt: startingLocation, afterSteps: steps)
+
+assert(endPosition == expectedEndPosition, "Was expecting \(expectedEndPosition) but got \(endPosition)")
 
 // Question Three
 
