@@ -135,16 +135,35 @@ assert(total == expectedTotal, "Was expecting \(expectedTotal), but got \(total)
 // Write a method inside Day that returns whether or not it is a weekday (Monday - Friday)
 
 // Your code here
-
+enum Day : String {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+    case sunday
+    
+    func isWeekday() -> Bool {
+        switch self {
+        case .saturday :
+            return false
+        case .sunday :
+            return false
+        default:
+            return true
+        }
+    }
+}
 // Uncomment the lines below to test your solution
 
-//assert(Day.monday.isWeekday() == true, "Monday is a weekday")
-//assert(Day.tuesday.isWeekday() == true, "Tuesday is a weekday")
-//assert(Day.wednesday.isWeekday() == true, "Wednesday is a weekday")
-//assert(Day.thursday.isWeekday() == true, "Thursday is a weekday")
-//assert(Day.friday.isWeekday() == true, "Friday is a weekday")
-//assert(Day.saturday.isWeekday() == false, "Saturday is not a weekday")
-//assert(Day.sunday.isWeekday() == false, "Sunday is not a weekday")
+assert(Day.monday.isWeekday() == true, "Monday is a weekday")
+assert(Day.tuesday.isWeekday() == true, "Tuesday is a weekday")
+assert(Day.wednesday.isWeekday() == true, "Wednesday is a weekday")
+assert(Day.thursday.isWeekday() == true, "Thursday is a weekday")
+assert(Day.friday.isWeekday() == true, "Friday is a weekday")
+assert(Day.saturday.isWeekday() == false, "Saturday is not a weekday")
+assert(Day.sunday.isWeekday() == false, "Sunday is not a weekday")
 
 // Question Five
 
@@ -156,17 +175,60 @@ assert(total == expectedTotal, "Was expecting \(expectedTotal), but got \(total)
 
 // Your code here
 
+enum HandShape {
+    case scissors
+    case rock
+    case paper
+}
+
+enum MatchResult {
+    case win
+    case draw
+    case lose
+}
+
+func matchResult(from player1: HandShape, and player2: HandShape) -> MatchResult {
+    switch player1 {
+    case .paper :
+        if player2 == .rock {
+            return .win
+        } else if player2 == .scissors {
+            return .lose
+        } else {
+            return .draw
+        }
+    case .rock :
+        if player2 == .scissors {
+            return .win
+        } else if player2 == .paper {
+            return .lose
+        } else {
+            return .draw
+        }
+    case .scissors :
+        if player2 == .paper {
+            return .win
+        } else if player2 == .rock {
+            return .lose
+        } else {
+            return .draw
+        }
+    }
+}
+
+
+
 // Uncomment the lines below to test your solution
 
-//let testCases: [(HandShape, HandShape, MatchResult)] = [
-//    (.rock, .paper, .lose),
-//    (.paper, .paper, .draw),
-//    (.scissors, .rock, .lose),
-//    (.rock, .scissors, .win)
-//]
-//
-//for testCase in testCases {
-//    let expectedOutput = testCase.2
-//    let output = matchResult(fromPlayerOneShape: testCase.0, andPlayerTwoShape: testCase.1)
-//    assert(output == expectedOutput, "Was execting \(expectedOutput), but got \(output) for inputs \(testCase.0) and \(testCase.1)")
-//}
+let testCases: [(HandShape, HandShape, MatchResult)] = [
+    (.rock, .paper, .lose),
+    (.paper, .paper, .draw),
+    (.scissors, .rock, .lose),
+    (.rock, .scissors, .win)
+]
+
+for testCase in testCases {
+    let expectedOutput = testCase.2
+    let output = matchResult(fromPlayerOneShape: testCase.0, andPlayerTwoShape: testCase.1)
+    assert(output == expectedOutput, "Was execting \(expectedOutput), but got \(output) for inputs \(testCase.0) and \(testCase.1)")
+}
